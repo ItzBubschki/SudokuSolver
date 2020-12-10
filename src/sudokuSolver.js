@@ -185,11 +185,6 @@ function handleMissingFields() {
     }
 
     filledField = currentField;
-    if (currentState === states.FINISHED) {
-        console.log("Finished the game!!!");
-    } else {
-        console.log("couldn't finish but got this far:");
-    }
 }
 
 function invertTable() {
