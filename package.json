@@ -1,0 +1,26 @@
+{
+  "name": "sudokosolver",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "cors": "^2.8.5"
+  },
+  "devDependencies": {
+    "jest": "^26.6.3",
+    "node-fetch": "^2.6.1"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://bitbucket.org/ItzBubschki/sudokusolver.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/ItzBubschki/sudokusolver#readme"
+}
