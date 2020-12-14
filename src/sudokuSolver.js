@@ -1,4 +1,4 @@
-const {states, phases} = require('./constants');
+const {states, phases, availableNums} = require('./constants');
 const helpers = require('./helpers');
 
 let originalField;
@@ -44,17 +44,6 @@ function solveGame(field) {
 
 function updateMissingData() {
     jsonData = {rows: [], squares: []};
-    const availableNums = {
-        1: 1,
-        2: 2,
-        3: 3,
-        4: 4,
-        5: 5,
-        6: 6,
-        7: 7,
-        8: 8,
-        9: 9,
-    };
     for (let i = 0; i < currentField.length; i++) {
         const availableRow = {...availableNums};
         const emptyCellsRow = [];
