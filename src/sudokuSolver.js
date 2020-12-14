@@ -1,22 +1,10 @@
+const {states, phases} = require('./constants');
+const helpers = require('./helpers');
+
 let originalField;
 
 let filledField, currentField, checkPoint;
 let jsonData = {rows: [], columns: []};
-
-const states = {
-    FILLED: "filled",
-    INVERTED: "inverted",
-    SQUARES: "squares",
-    STUCK: "stuck",
-    FAILED_GUESS: "failed-guess",
-    FINISHED: "finished",
-    FAILED: "failed"
-};
-
-const phases = {
-    NORMAL: "normal",
-    GUESSING: "guessing"
-}
 
 function validateGameField(field) {
     let valid = true;
@@ -47,8 +35,8 @@ function validateGameField(field) {
 
 function solveGame(field) {
     originalField = field;
-    filledField = createDeepArrayCopy(originalField);
-    currentField = createDeepArrayCopy(filledField);
+    filledField = helpers.createDeepArrayCopy(originalField);
+    currentField = helpers.createDeepArrayCopy(filledField);
     updateMissingData();
     handleMissingFields();
     return filledField;
@@ -159,7 +147,7 @@ function handleMissingFields() {
                     } else {
                         newState = states.STUCK;
                         if (currentPhase === phases.NORMAL) {
-                            checkPoint = createDeepArrayCopy(currentField);
+                            checkPoint = helpers.createDeepArrayCopy(currentField);
                             currentPhase = phases.GUESSING;
                         }
                     }
@@ -172,7 +160,7 @@ function handleMissingFields() {
                 }
                 break;
             case states.FAILED_GUESS:
-                currentField = createDeepArrayCopy(checkPoint);
+                currentField = helpers.createDeepArrayCopy(checkPoint);
                 newState = states.STUCK;
                 break;
         }
@@ -424,15 +412,6 @@ function guessEmptyField() {
         }
     }
     return false;
-}
-
-function createDeepArrayCopy(original) {
-    const newArray = [];
-    for (let i = 0; i < original.length; i++) {
-        const row = original[i].slice();
-        newArray.push(row);
-    }
-    return newArray;
 }
 
 exports.solveGame = solveGame;

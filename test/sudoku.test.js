@@ -1,5 +1,7 @@
-const sudokuSolver = require('../src/sudokuSolver');
 const fs = require('fs');
+const {test} = require("@jest/globals");
+
+const sudokuSolver = require('../src/sudokuSolver');
 
 const testDataEmptyPath = './test-data/empty-fields';
 const testDataFilledPath = './test-data/filled-fields';

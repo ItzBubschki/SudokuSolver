@@ -1,7 +1,9 @@
-const express = require('express')
-const sudokuSolver = require('./src/sudokuSolver');
+const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+
+const sudokuSolver = require('./src/sudokuSolver');
+
 const app = express();
 const port = 6969;
 
