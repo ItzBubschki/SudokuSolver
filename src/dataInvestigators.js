@@ -47,7 +47,20 @@ function squareContainsNumber(number, square, currentField) {
     return false;
 }
 
+function checkIfGameFinished(currentField) {
+    for (let i = 0; i < currentField.length; i++) {
+        const row = currentField[i];
+        for (let j = 0; j < row.length; j++) {
+            if (currentField[i][j] === "") {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
 exports.getSquareContent = getSquareContent;
 exports.columnContainsNumber = columnContainsNumber;
 exports.rowContainsNumber = rowContainsNumber;
 exports.squareContainsNumber = squareContainsNumber;
+exports.checkIfGameFinished = checkIfGameFinished;

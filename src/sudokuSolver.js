@@ -24,8 +24,7 @@ function validateGameField(field) {
         return false;
     }
     try {
-        currentField = field;
-        updateMissingData();
+        updateMissingData(field);
     } catch {
         return false;
     }
@@ -35,18 +34,18 @@ function validateGameField(field) {
 function solveGame(field) {
     filledField = helpers.createDeepArrayCopy(field);
     currentField = helpers.createDeepArrayCopy(field);
-    updateMissingData();
+    updateMissingData(field);
     handleMissingFields();
     return filledField;
 }
 
-function updateMissingData() {
+function updateMissingData(field) {
     jsonData = {rows: [], squares: []};
-    for (let i = 0; i < currentField.length; i++) {
+    for (let i = 0; i < field.length; i++) {
         const availableRow = {...availableNums};
         const emptyCellsRow = [];
-        for (let j = 0; j < currentField[i].length; j++) {
-            const num = currentField[i][j];
+        for (let j = 0; j < field[i].length; j++) {
+            const num = field[i][j];
             if (num !== "") {
                 delete availableRow[num];
             } else {
@@ -65,10 +64,10 @@ function updateMissingData() {
         jsonData["rows"].push(rowData);
     }
 
-    for (let i = 0; i < currentField.length; i++) {
+    for (let i = 0; i < field.length; i++) {
         const availableSquare = {...availableNums};
         const emptyCellsSquare = [];
-        const squareContent = dataInvestigators.getSquareContent(i, currentField);
+        const squareContent = dataInvestigators.getSquareContent(i, field);
 
         for (let j = 0; j < squareContent.length; j++) {
             const sRow = squareContent[j];
@@ -128,7 +127,7 @@ function handleMissingFields() {
                 if (filledSomething) {
                     newState = states.FILLED;
                 } else {
-                    const finishedGame = checkIfGameFinished();
+                    const finishedGame = dataInvestigators.checkIfGameFinished(currentField);
                     if (finishedGame) {
                         newState = states.FINISHED;
                     } else {
@@ -152,7 +151,7 @@ function handleMissingFields() {
                 break;
         }
         try {
-            updateMissingData();
+            updateMissingData(currentField);
         } catch {
             newState = states.FAILED_GUESS;
         }
@@ -287,18 +286,6 @@ function fillEmptyField(number, row, column) {
     } else {
         throw "Field not empty";
     }
-}
-
-function checkIfGameFinished() {
-    for (let i = 0; i < currentField.length; i++) {
-        const row = currentField[i];
-        for (let j = 0; j < row.length; j++) {
-            if (currentField[i][j] === "") {
-                return false;
-            }
-        }
-    }
-    return true;
 }
 
 function guessEmptyField() {
