@@ -1,4 +1,30 @@
 const fieldConstantsHandler = require("./fieldConstantsHandler");
+const sudokuSolver = require('./sudokuSolver');
+
+function validateGameField(field) {
+    if (field.length === 9) {
+        for (let i = 0; i < field.length; i++) {
+            if (field[i].length === 9) {
+                for (let j = 0; j < field[i].length; j++) {
+                    const fieldValue = Number.parseInt(field[i][j]);
+                    if (fieldValue <= 0 || fieldValue > 9) {
+                        return false;
+                    }
+                }
+            } else {
+                return false;
+            }
+        }
+    } else {
+        return false;
+    }
+    try {
+        sudokuSolver.updateMissingData(field);
+    } catch {
+        return false;
+    }
+    return true;
+}
 
 function getSquareContent(number, currentField) {
     const rowIndex = fieldConstantsHandler.getRowIndexForSquare(number);
@@ -64,3 +90,4 @@ exports.columnContainsNumber = columnContainsNumber;
 exports.rowContainsNumber = rowContainsNumber;
 exports.squareContainsNumber = squareContainsNumber;
 exports.checkIfGameFinished = checkIfGameFinished;
+exports.validateGameField = validateGameField;

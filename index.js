@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 
 const sudokuSolver = require('./src/sudokuSolver');
+const dataInvestigators = require('./src/dataInvestigators');
 
 const app = express();
 const port = 6969;
@@ -25,7 +26,7 @@ app.post('/solve', (req, res) => {
     if (bodyData.data) {
         fieldData = bodyData.data;
     }
-    if (sudokuSolver.validateGameField(fieldData)) {
+    if (dataInvestigators.validateGameField(fieldData)) {
         const filledGame = sudokuSolver.solveGame(fieldData);
         res.send(filledGame);
     } else {

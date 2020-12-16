@@ -6,31 +6,6 @@ const dataInvestigators = require('./dataInvestigators');
 let filledField, currentField, checkPoint;
 let jsonData;
 
-function validateGameField(field) {
-    if (field.length === 9) {
-        for (let i = 0; i < field.length; i++) {
-            if (field[i].length === 9) {
-                for (let j = 0; j < field[i].length; j++) {
-                    const fieldValue = Number.parseInt(field[i][j]);
-                    if (fieldValue <= 0 || fieldValue > 9) {
-                        return false;
-                    }
-                }
-            } else {
-                return false;
-            }
-        }
-    } else {
-        return false;
-    }
-    try {
-        updateMissingData(field);
-    } catch {
-        return false;
-    }
-    return true;
-}
-
 function solveGame(field) {
     filledField = helpers.createDeepArrayCopy(field);
     currentField = helpers.createDeepArrayCopy(field);
@@ -307,4 +282,4 @@ function guessEmptyField() {
 }
 
 exports.solveGame = solveGame;
-exports.validateGameField = validateGameField;
+exports.updateMissingData = updateMissingData;
