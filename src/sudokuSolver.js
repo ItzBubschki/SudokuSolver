@@ -1,6 +1,6 @@
 const {states, phases, availableNums} = require('./constants');
 const helpers = require('./helpers');
-const fieldConstantsHandler = require("./fieldConstantsHandler");
+const fieldConstantsHandler = require('./fieldConstantsHandler');
 const dataInvestigators = require('./dataInvestigators');
 
 let filledField, currentField, checkPoint;
@@ -21,7 +21,7 @@ function updateMissingData(field) {
         const emptyCellsRow = [];
         for (let j = 0; j < field[i].length; j++) {
             const num = field[i][j];
-            if (num !== "") {
+            if (num !== '') {
                 delete availableRow[num];
             } else {
                 emptyCellsRow.push(j);
@@ -30,13 +30,13 @@ function updateMissingData(field) {
         const empty = Object.values(emptyCellsRow);
         const missing = Object.keys(availableRow);
         if (empty.length !== missing.length) {
-            throw "Added a number into a wrong field";
+            throw 'Added a number into a wrong field';
         }
         const rowData = {
             empty: empty,
-            missing: missing,
+            missing: missing
         };
-        jsonData["rows"].push(rowData);
+        jsonData['rows'].push(rowData);
     }
 
     for (let i = 0; i < field.length; i++) {
@@ -48,14 +48,14 @@ function updateMissingData(field) {
             const sRow = squareContent[j];
             for (let k = 0; k < sRow.length; k++) {
                 const field = sRow[k];
-                if (field !== "") {
+                if (field !== '') {
                     delete availableSquare[field];
                 } else {
                     const rowIndex = fieldConstantsHandler.getRowIndexForSquare(i);
                     const columnIndex = fieldConstantsHandler.getColumnIndexForSquare(i);
                     const cord = {
                         x: rowIndex + j,
-                        y: columnIndex + k,
+                        y: columnIndex + k
                     };
                     emptyCellsSquare.push(cord);
                 }
@@ -64,13 +64,13 @@ function updateMissingData(field) {
         const empty = Object.values(emptyCellsSquare);
         const missing = Object.keys(availableSquare);
         if (empty.length !== missing.length) {
-            throw "Added a number into a wrong field";
+            throw 'Added a number into a wrong field';
         }
         const squareData = {
             empty: empty,
-            missing: missing,
+            missing: missing
         };
-        jsonData["squares"].push(squareData);
+        jsonData['squares'].push(squareData);
     }
 }
 
@@ -142,9 +142,9 @@ function invertTable() {
 
 function iterateThroughRows() {
     for (let i = 0; i < jsonData["rows"].length; i++) {
-        const row = jsonData["rows"][i];
-        if (row["missing"].length === 1) {
-            fillEmptyField(row["missing"][0], i, row["empty"][0]);
+        const row = jsonData['rows'][i];
+        if (row['missing'].length === 1) {
+            fillEmptyField(row['missing'][0], i, row['empty'][0]);
             return true;
         } else {
             const restrictedFields = {
@@ -156,20 +156,20 @@ function iterateThroughRows() {
                 6: [],
                 7: [],
                 8: [],
-                9: [],
+                9: []
             };
             for (let j = 0; j < row["empty"].length; j++) {
-                const currentFieldValue = row["empty"][j];
+                const currentFieldValue = row['empty'][j];
                 const excludedNums = [];
                 for (let k = 0; k < row["missing"].length; k++) {
-                    const currentNumber = row["missing"][k];
+                    const currentNumber = row['missing'][k];
                     if (dataInvestigators.columnContainsNumber(currentNumber, currentFieldValue, currentField) > 0) {
                         restrictedFields[currentNumber].push(currentFieldValue);
-                        if (row["missing"].length === 2) {
+                        if (row['missing'].length === 2) {
                             if (k === 1) {
-                                fillEmptyField(row["missing"][j], i, row["empty"][0]);
+                                fillEmptyField(row['missing'][j], i, row['empty'][0]);
                             } else {
-                                fillEmptyField(row["missing"][j], i, row["empty"][1]);
+                                fillEmptyField(row['missing'][j], i, row['empty'][1]);
                             }
                             return true;
                         } else {
@@ -184,10 +184,10 @@ function iterateThroughRows() {
                         restrictedFields[currentNumber].push(currentFieldValue);
                     }
                 }
-                if (excludedNums.length + 1 === row["missing"].length) {
+                if (excludedNums.length + 1 === row['missing'].length) {
                     for (let k = 0; k < row["missing"].length; k++) {
-                        if (!excludedNums.includes(row["missing"][k])) {
-                            fillEmptyField(row["missing"][k], i, row["empty"][j]);
+                        if (!excludedNums.includes(row['missing'][k])) {
+                            fillEmptyField(row['missing'][k], i, row['empty'][j]);
                             return true;
                         }
                     }
@@ -196,7 +196,7 @@ function iterateThroughRows() {
             const keys = Object.keys(restrictedFields);
             for (let k = 0; k < keys.length; k++) {
                 const value = restrictedFields[keys[k]];
-                const emptyFields = row["empty"];
+                const emptyFields = row['empty'];
                 if (value.length + 1 === emptyFields.length) {
                     for (let l = 0; l < emptyFields.length; l++) {
                         if (!value.includes(emptyFields[l])) {
@@ -213,9 +213,9 @@ function iterateThroughRows() {
 
 function iterateThroughSquares() {
     for (let i = 0; i < jsonData["squares"].length; i++) {
-        const square = jsonData["squares"][i];
+        const square = jsonData['squares'][i];
         if (square.missing.length === 1) {
-            fillEmptyField(square.missing[0], square.empty["0"].x, square.empty["0"].y);
+            fillEmptyField(square.missing[0], square.empty['0'].x, square.empty['0'].y);
             return true;
         } else {
             const restrictedFields = {
@@ -227,7 +227,7 @@ function iterateThroughSquares() {
                 6: [],
                 7: [],
                 8: [],
-                9: [],
+                9: []
             };
             for (let j = 0; j < square.empty.length; j++) {
                 for (let k = 0; k < square.missing.length; k++) {
@@ -256,10 +256,10 @@ function iterateThroughSquares() {
 }
 
 function fillEmptyField(number, row, column) {
-    if (currentField[row][column] === "") {
+    if (currentField[row][column] === '') {
         currentField[row][column] = number;
     } else {
-        throw "Field not empty";
+        throw 'Field not empty';
     }
 }
 
@@ -271,7 +271,7 @@ function guessEmptyField() {
         const randomColumn = jsonData.rows[randomRow].empty[randomColumnNum];
         const randomNumberIndex = Math.floor(Math.random() * jsonData.rows[randomRow].missing.length);
         const randomNumber = jsonData.rows[randomRow].missing[randomNumberIndex];
-        if (currentField[randomRow][randomColumn] === "") {
+        if (currentField[randomRow][randomColumn] === '') {
             currentField[randomRow][randomColumn] = randomNumber;
             return true;
         } else {

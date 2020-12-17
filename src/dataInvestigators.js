@@ -1,4 +1,4 @@
-const fieldConstantsHandler = require("./fieldConstantsHandler");
+const fieldConstantsHandler = require('./fieldConstantsHandler');
 const sudokuSolver = require('./sudokuSolver');
 
 function validateGameField(field) {
@@ -77,7 +77,7 @@ function checkIfGameFinished(currentField) {
     for (let i = 0; i < currentField.length; i++) {
         const row = currentField[i];
         for (let j = 0; j < row.length; j++) {
-            if (currentField[i][j] === "") {
+            if (currentField[i][j] === '') {
                 return false;
             }
         }

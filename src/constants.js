@@ -1,17 +1,17 @@
 const states = {
-    FILLED: "filled",
-    INVERTED: "inverted",
-    SQUARES: "squares",
-    STUCK: "stuck",
-    FAILED_GUESS: "failed-guess",
-    FINISHED: "finished",
-    FAILED: "failed"
+    FILLED: 'filled',
+    INVERTED: 'inverted',
+    SQUARES: 'squares',
+    STUCK: 'stuck',
+    FAILED_GUESS: 'failed-guess',
+    FINISHED: 'finished',
+    FAILED: 'failed'
 };
 
 const phases = {
-    NORMAL: "normal",
-    GUESSING: "guessing"
-}
+    NORMAL: 'normal',
+    GUESSING: 'guessing'
+};
 
 const availableNums = {
     1: 1,
@@ -22,11 +22,8 @@ const availableNums = {
     6: 6,
     7: 7,
     8: 8,
-    9: 9,
+    9: 9
 };
-
-
-
 
 exports.states = states;
 exports.phases = phases;
