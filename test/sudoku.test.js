@@ -52,6 +52,24 @@ test('invalidate sudoku game 3', () => {
     expect(validated).toBeFalsy();
 })
 
+test('invalidate sudoku game 4', () => {
+    const rawDataEmpty = fs.readFileSync(`${testDataEmptyPath}/invalid-field4.json`);
+    const emptyField = JSON.parse(rawDataEmpty.toString());
+
+    const validated = dataInvestigators.validateGameField(emptyField);
+
+    expect(validated).toBeFalsy();
+})
+
+test('invalidate sudoku game 5', () => {
+    const rawDataEmpty = fs.readFileSync(`${testDataEmptyPath}/invalid-field5.json`);
+    const emptyField = JSON.parse(rawDataEmpty.toString());
+
+    const validated = dataInvestigators.validateGameField(emptyField);
+
+    expect(validated).toBeFalsy();
+})
+
 test('solve sudoku game 0', () => {
     const rawDataEmpty = fs.readFileSync(`${testDataEmptyPath}/empty-field0.json`);
     const emptyField = JSON.parse(rawDataEmpty.toString());
@@ -91,4 +109,11 @@ test('solve sudoku game 3 (expert)', () => {
 
     const filledFieldResponse = sudokuSolver.solveGame(emptyField);
     expect(filledFieldResponse).toEqual(filledFieldData);
+})
+
+test('solve sudoku hardest game (according to a website)', () => {
+    const rawDataEmpty = fs.readFileSync(`${testDataEmptyPath}/empty-field5.json`);
+    const emptyField = JSON.parse(rawDataEmpty.toString());
+
+    expect(emptyField).not.toBeNull();
 })
